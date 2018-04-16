@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form action="api/users/upload-avatar" method="post" enctype="multipart/form-data">
+      <legend>Upload File</legend>
+      <input type="file" name="avatar">
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
