@@ -1,0 +1,63 @@
+<div class="login-container">
+  <div style="text-align: center">
+    <h2>Đăng nhập</h2>
+  </div>
+  <br>
+  <!-- Custom Success/Error Message -->
+  <div class="row show-hide-message login-container">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <div class="white-box-card">
+    <!-- Login Form -->
+    <form [formGroup]="form" (ngSubmit)="onLoginSubmit()">
+      <!-- username input -->
+      <div class="form-group">
+        <label for="username">Tên tài khoản</label>
+        <div [ngClass]="{'has-error': form.controls.username.errors && form.controls.username.dirty, 'has-success': form.controls.username.valid}">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input id="username" type="text" class="form-control" name="username" formControlName="username">
+          </div>
+          <!-- Validation -->
+          <ul class="help-block">
+            <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">Bạn phải nhập tài khoản</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- password input -->
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <div [ngClass]="{'has-error': form.controls.password.errors && form.controls.password.dirty, 'has-success': form.controls.password.valid}">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-lock"></i>
+            </span>
+            <input id="password" type="password" class="form-control" name="password" formControlName="password">
+          </div>
+          <!-- Validation -->
+          <ul class="help-block">
+            <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">Bạn phải nhập mật khẩu</li>
+          </ul>
+        </div>
+      </div>
+      <div class="forget-password-box">
+        <a routerLink="#">Quên mật khẩu?</a>
+      </div>
+
+      <!-- Submit button -->
+      <br>
+      <input [disabled]="!form.valid || processing" type="submit" class="btn btn-primary login-button" value="Đăng nhập">
+    </form>
+  </div>
+  <br>
+  <!--  -->
+  <div class="register-box white-box-card">
+    Bạn chưa có tải khoản?
+    <a routerLink="/register">Đăng kí</a>
+  </div>
+</div>

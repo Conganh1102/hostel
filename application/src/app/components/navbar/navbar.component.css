@@ -1,0 +1,16 @@
+nav {
+    margin: 0;
+    padding: 0;
+    background: rgb(37, 34, 34);
+    border-radius: 0%;
+}
+a {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+}
+#avatarImage {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5%;
+}

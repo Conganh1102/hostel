@@ -1,0 +1,15 @@
+agm-map {
+    height: 400px;
+}
+#goooglemap-box {
+  position: relative;
+}
+#agm-search-input {
+  position: absolute;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  width: 30%;
+  border-style: none;
+  border-radius: 5px;
+  z-index: 100;
+}

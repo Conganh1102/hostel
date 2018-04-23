@@ -1,0 +1,13 @@
+.house-info {
+    font-size: 1.5rem;
+}
+form input {
+    width: 50%;
+}
+p-radioButton {
+    margin-left: 4rem;
+}
+
+.house-panel {
+    margin-bottom: 4rem;
+}

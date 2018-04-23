@@ -1,0 +1,88 @@
+<div *ngIf="!selectedHouse">
+  <!-- Custom Success/Error Message -->
+  <div class="row show-hide-message" *ngIf="message && newHouse">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <!-- Start Toolbar for house -->
+  <p-toolbar *ngIf="!newHouse">
+    <div class="ui-toolbar-group-left">
+      <button pButton type="button" label="Thêm nhà" icon="fa-plus" (click)="newHouseForm()"></button>
+    </div>
+
+    <div class="ui-toolbar-group-right">
+      <input type="text" pInputText/>
+      <button pButton type="button" icon="fa-search"></button>
+      <button pButton type="button" icon="fa-refresh" (click)="refresh()"></button>
+    </div>
+  </p-toolbar>
+  <!-- End Toolbar for house -->
+  <br>
+  <app-add-house *ngIf="newHouse"></app-add-house>
+  <br>
+  <!-- Start panel house list -->
+  <div>
+
+  </div>
+  <div *ngIf="!newHouse">
+    <div *ngFor="let house of houseList" class="house-panel">
+      <p-panel>
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">{{ house.name }}</span>
+
+            <p-splitButton styleClass="ui-button-info" [style]="{'float':'right'}" label="Xem" icon="fa fa-info" (onClick)="viewHouse()"
+              [model]="houseItems"></p-splitButton>
+          </div>
+        </p-header>
+        <!-- Start house info -->
+        <div class="house-info">
+          <ul>
+            <li>{{ house.address }}</li>
+            <li>Giá điện: {{ house.electricity_price }}</li>
+            <li>Giá nước: {{ house.water_price }}</li>
+          </ul>
+        </div>
+        <!-- End house info -->
+        <p-footer>
+          <div class="ui-helper-clearfix">
+            <button pButton type="button" icon="fa fa-list-alt" label="Xem các phòng" class="ui-button-primary"></button>
+            <p-dropdown [options]="roomTypes" [(ngModel)]="selectedTypeRoom" optionLabel="name"></p-dropdown>
+            <button style="float:right;" pButton type="button" icon="fa fa-plus-square" label="Thêm phòng" class="ui-button-primary"></button>
+          </div>
+        </p-footer>
+      </p-panel>
+      <!-- End panel house list -->
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Confirmation Window -->
+<div class="col-md-6" *ngIf="selectedHouse">
+  <!-- Model Outer Layer -->
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <!-- Close Button -->
+      <button type="button" name="button" class="close" data-dismiss="modal">&times;</button>
+      <!-- Modal Title -->
+      <h4 class="modal-title">Xác nhận</h4>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <p>Bạn có chắc muốn xóa nhà nhà chứ ?</p>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <!-- Yes Button -->
+      <button [disabled]="processing" type="button" name="button" class="btn btn-success" (click)="deleteHouse()">Đồng ý</button>
+      <!-- No Button -->
+      <a routerLink="/blog">
+        <button [disabled]="processing" type="button" name="button" class="btn btn-danger">Hủy</button>
+      </a>
+    </div>
+  </div>

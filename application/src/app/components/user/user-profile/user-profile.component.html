@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="row" style="padding-top: 2em;">
+        <div class="col-sm-3">
+            <div class="avatar-box" (mouseover)="mouseOverAvatar($event)" (mouseleave)="mouseLeaveAvatar($event)">
+                <img *ngIf="processingUploadAvatar" id="processingUploadImage" class="spin" [src]="processingUploadImage" alt="">
+                <img id="avatar" [src]="avatarImage" alt="profile image">
+                <div *ngIf="onMouseAvatar" id="upload-avatar-box">
+                    <input id="file-avatar-input" type="file" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)"/>
+                    <div id="upload-avatar">
+                        <span id="upload-camera" class="glyphicon glyphicon-camera"></span> Tải ảnh đại diện
+                    </div>
+
+                </div>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-danger">Chỉnh sửa thông tin</button>
+            </div>
+            <br>
+            <div class="white-box-card">
+                <ul>
+                    <li>Trang cá nhân</li>
+                    <li>Quản lý nhà của bạn</li>
+                    <li>More</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="white-box-card">
+                <h4>Thông tin tài khoản</h4>
+                <div style="display: block;">
+                    <p>Tên tài khoản: {{ user?.username }}</p>
+                    <p>Địa chỉ Email: {{ user?.email }}</p>
+                    <p>Vai trò: {{ user?.role }}</p>
+                </div>
+            </div>
+            <br>
+            <div class="white-box-card">
+                <h4>Thông tin người dùng</h4>
+                <div style="display: block;">
+                    <p>Họ và tên: {{ user?.info.name.surname + ' ' + user?.info.name.firstname }}</p>
+                    <p>Giới tính: {{ user?.info.sex }}</p>
+                    <p>Ngày sinh: {{ user?.info.birthday | date:"dd-MM-yyyy" }}</p>
+                </div>
+            </div>
+            <br>
+            <div class="white-box-card">
+                <h4>Thông tin liên lạc</h4>
+                <div style="display: block;">
+                    <p>Địa chỉ: {{ user?.info.contact.address }}</p>
+                    <p>Số điện thoại: {{ user?.info.contact.phoneNumber }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

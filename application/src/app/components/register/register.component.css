@@ -1,0 +1,34 @@
+ul {
+    padding: 0;
+    margin: 0;
+}
+li {
+    list-style: circle inside;
+    font-size: 1.2rem;
+}
+
+.information-li {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.register-box {
+    border: 1px solid rgb(216, 222, 226);
+    border-radius: 5px;
+    padding: 2rem;
+    background-color: white;
+
+}
+.register-container {   
+    width: 50rem;
+    margin: auto;
+}
+.box-container {
+    font-family: "Times New Roman", Times, serif;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+}
+input {
+    margin-bottom: 1rem;
+}

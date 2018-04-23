@@ -1,0 +1,60 @@
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+<!-- Start new house form -->
+<p-panel *ngIf="!isShowGm">
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Thêm mới nhà</span>
+    </div>
+  </p-header>
+  <form [formGroup]="formNewHouse" (submit)="onHouseSubmit()">
+    <div class="form-group">
+      <label for="housename">Tên nhà:</label>
+      <div>
+        <input type="text" name="housename" class="form-control" placeholder="*Tên bất kỳ để phân biệt" autocomplete="off" formControlName="housename">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address">Địa chỉ:</label>
+      <div>
+        <input [(ngModel)]="address" (focus)="showGoogleMap()" type="text" name="adress" class="form-control" placeholder="*Ghi rõ địa chỉ"
+          autocomplete="off" formControlName="address">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="electricwater">Điện nước:</label>
+      <p-radioButton name="electricwater" value="Giá dân" label="Giá dân" formControlName="electricwater" inputId="gia-dan" (click)="handleChangeEWprice(true)"></p-radioButton>
+      <p-radioButton name="electricwater" value="Giá kinh doanh" label="Giá kinh doanh" formControlName="electricwater" inputId="gia-kinh-doanh"
+        (click)="handleChangeEWprice(false)"></p-radioButton>
+    </div>
+    <div *ngIf="!isGiaDan">
+      <div class="form-group">
+        <label for="electricprice">Giá điện:</label>
+        <div>
+          <input type="text" name="electricprice" class="form-control" placeholder="Vd: 5k/số, 100k/người/tháng..." autocomplete="off"
+            formControlName="electricprice">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="waterprice">Giá nước:</label>
+        <div>
+          <input type="text" name="waterprice" class="form-control" placeholder="Vd: 20k/số, 60k/người/tháng..." autocomplete="off"
+            formControlName="waterprice">
+        </div>
+      </div>
+    </div>
+    <!-- Go Back Button -->
+    <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Quay lại</button>
+    <!-- Submit Button -->
+    <button [disabled]="processing" type="submit" name="button" class="btn btn-success">Xác nhận</button>
+  </form>
+</p-panel>
+
+<!-- End new house form -->
+
+<!-- Googlemap Panel -->
+<app-googlemap *ngIf="isShowGm" (hiddenGM)="hiddenGoogleMap()" (sendPosition)="getPosition($event)"></app-googlemap>

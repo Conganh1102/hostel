@@ -1,0 +1,97 @@
+<div class="box-container">
+    <div class="register-container">
+        <div style="text-align: center">
+            <h2>Đăng kí tài khoản</h2>
+        </div>
+        <br>
+        <!-- Custom Success/Error Message -->
+        <div class="row show-hide-message register-container">
+          <div [ngClass]="messageClass">
+            {{ message }}
+          </div>
+        </div>
+        <div class="register-box">
+          <!-- Register Form -->
+          <form [formGroup]="form" (submit)="onRegisterSubmit()">
+            <!-- name input -->
+      
+            <!-- <div class="row">
+              <div class="col-sm-6">
+                <input type="text" name="surname" class="form-control" autocomplete="off" placeholder="*Họ đệm" formControlName="surname">
+                <ul class="help-block">
+      
+                </ul>
+              </div>
+              <div class="col-sm-6">
+                <input type="text" name="surname" class="form-control" autocomplete="off" placeholder="*Tên" formControlName="firstname">
+                <ul class="help-block">
+      
+                </ul>
+              </div>
+            </div> -->
+      
+            <!-- username input -->
+      
+            <div class="form-group">
+              <label for="username">Tên tài khoản</label>
+              <div [ngClass]="{'has-error': (form.controls.username.errors && form.controls.username.dirty) || (!usernameValid && form.controls.username.value), 'has-success': !form.controls.username.errors && usernameValid}">
+                <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Tên tài khoản" formControlName="username"
+                  (keypress)="checkUsername()">
+                <ul class="help-block">
+                  <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">Bạn cần nhập trường này</li>
+                  <li *ngIf="form.controls.username.errors?.minlength && form.controls.username.value || form.controls.username.errors?.maxlength && form.controls.username.value ">Tên tài khoản phải từ 3 đến 15 kí tự</li>
+                  <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.value">Tên tài khoản không được chứa các kí tự đặc biệt</li>
+                  <li *ngIf="usernameMessage && form.controls.username.valid">{{ usernameMessage }}</li>
+                  <p *ngIf="!form.controls.username.dirty" class="information-li">Đây là tên tài khoản bạn dùng để đăng nhập</p>
+                </ul>
+              </div>
+            </div>
+      
+            <!-- email input -->
+            <div class="form-group">
+                <label for="email">Địa chỉ Email</label>
+                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.value), 'has-success': !form.controls.email.errors && email}">
+                  <input type="text" name="email" class="form-control" autocomplete="off" placeholder="*Địa chỉ email" formControlName="email"
+                    (keypress)="checkEmail()">
+                  <ul class="help-block">
+                    <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">Bạn cần nhập trường này</li>
+                    <li *ngIf="form.controls.email.errors?.minlength && form.controls.email.value || form.controls.email.errors?.maxlength && form.controls.email.value ">Địa chỉ email phải từ 5 đến 35 kí tự</li>
+                    <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.value">Địa chỉ email phải đúng định dạng</li>
+                    <li *ngIf="emailMessage && form.controls.email.valid">{{ emailMessage }}</li>
+                    <p *ngIf="!form.controls.email.dirty" class="information-li">Email này sẽ dùng để khôi phục lại tài khoản cho bạn</p>
+                  </ul>
+                </div>
+              </div>
+      
+            <!-- password input -->
+            <label for="">Mật khẩu</label>
+            <div class="row">
+              <div class="col-sm-6">
+                <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
+                  <input type="password" name="password" class="form-control" autocomplete="off" placeholder="*Mật khẩu" formControlName="password">
+                  <ul class="help-block">
+                    <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">Bạn cần nhập trường này</li>
+                    <li *ngIf="form.controls.password.errors?.minlength && form.controls.password.value || form.controls.password.errors?.maxlength && form.controls.password.value ">Mật khẩu phải từ 8 đến 35 kí tự</li>
+                    <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.value">Mật khẩu phải có ít nhất 1 chữ in hoa, 1 kí tự đặc biệt và 1 chữ số</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div [ngClass]="{'has-error': (form.controls.confirmpassword.errors && form.controls.confirmpassword.dirty) || (form.errors?.matchingPasswords && form.controls.confirmpassword.value), 'has-success': !form.controls.confirmpassword.errors && !form.errors?.matchingPasswords}">
+                  <input type="password" name="confirmpw" class="form-control" autocomplete="off" placeholder="*Xác nhận mật khẩu" formControlName="confirmpassword">
+                  <ul class="help-block">
+                    <li *ngIf="form.controls.confirmpassword.errors?.required && form.controls.confirmpassword.dirty">Bạn phải nhập trường này</li>
+                    <li *ngIf="form.errors?.matchingPasswords && form.controls.confirmpassword.value">Mật khẩu không khớp</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+      
+            <!-- submit input -->
+            <br>
+            <input [disabled]="!form.valid || proccessing || !usernameValid || !emailValid" type="submit" class="btn btn-primary" value="Tạo tài khoản">
+          </form>
+        </div>
+      </div>
+      
+</div>

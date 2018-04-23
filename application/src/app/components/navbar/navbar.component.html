@@ -1,0 +1,90 @@
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/">HOSTEL</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a routerLink="/home">Trang chủ</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="!this.authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+        </li>
+        <li *ngIf="!this.authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a routerLink="/register"><span class="glyphicon glyphicon-user"></span> Đăng kí</a>
+        </li>
+        <li *ngIf="this.authService.loggedIn()" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <img id="avatarImage" [src]="avatarImage" alt="">
+            {{ this.user?.info.name.firstname }}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a routerLink="/user/profile">Trang cá nhân</a>
+            </li>
+            <li>
+              <a routerLink="/user/house">Quản lý nhà</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="this.authService.loggedIn()" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="fa fa-bell"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Thông báo 1</a>
+            </li>
+            <li>
+              <a href="#">Thông báo 2</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="this.authService.loggedIn()" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="fa fa-envelope-o"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Tin nhắn 1</a>
+            </li>
+            <li>
+              <a href="#">Bài đang theo dõi</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="this.authService.loggedIn()" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">Thông tin liên hệ</a>
+            </li>
+            <li>
+              <a href="#">Cài đặt</a>
+            </li>
+            <li *ngIf="this.authService.loggedIn()">
+              <a href="#" (click)="onLogoutClick()">Đăng xuất</a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+</nav>

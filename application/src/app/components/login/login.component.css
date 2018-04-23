@@ -1,0 +1,13 @@
+.login-container {   
+    width: 40rem;   
+    margin: auto;
+}
+.login-button {
+    width: 100%;
+}
+.forget-password-box {
+    text-align: right;
+}
+.register-box {
+    text-align: center;
+}
