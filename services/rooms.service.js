@@ -4,9 +4,9 @@ var Room = require('../models/room');
 // Saving the context of this module inside _the variable
 _this = this;
 
-// Async function to find the House by Id
+// Async function to find the 
 
-exports.findUserById = async function(id, fields) {
+exports.findRoomById = async function(id, fields) {
     try {
         var romm = await Room.findOne({_id: id}).select(fields);
         return room;
@@ -15,8 +15,18 @@ exports.findUserById = async function(id, fields) {
     }
 }
 
-exports.addRoom = async function(room) {
+exports.findRoomByHouseId = async function(id, fields) {
+    try {
+        var romms = await Room.find({houseId: id}).select(fields);
+        return rooms;
+    } catch (error) {
+        throw Error('Error occured while finding Room by houseId: ' + error);
+    }
+}
+
+exports.createRoom = async function(room) {
     var newRoom = new Room({
+        houseId: room.houseId,
         floor:  room.floor,
         area: room.area,
         price: room.price,
@@ -25,6 +35,12 @@ exports.addRoom = async function(room) {
         other_info: room.other_info,
         images: room.images
     });
+    try {
+        var createdRoom = await newRoom.save();
+        return createdRoom;
+    } catch (error) {
+        throw Error('Error occured while create Room: ' + error);
+    }
 }
 
 exports.updateRoom = async function(room) {
@@ -34,6 +50,10 @@ exports.updateRoom = async function(room) {
         var oldRoom = await Room.findUserById(id);
     } catch (error) {
         throw Error('Error occured while finding Room by Id: ' + error);
+    }
+
+    if (room.houseId) {
+        oldRoom.houseId = room.houseId;
     }
 
     if (room.floor) {
@@ -70,7 +90,7 @@ exports.updateRoom = async function(room) {
 exports.deleteRoom = async function(id) {
     // Delete the room
     try {
-        var deleted = await Room.remove({_id: id});
+        let deleted = await Room.remove({_id: id});
         if(deleted.result.n === 0) {
             throw Error('Room could not be deleted');
         }

@@ -9,6 +9,7 @@ var router = express.Router();
 var UserController = require('../../controllers/users.controller');
 var AuthenticationController = require('../../controllers/authentication.controller');
 var AccessController = require('../../controllers/access.controller');
+var HouseController = require('../../controllers/house.controller');
 
 // Map each API to the Controller function
 

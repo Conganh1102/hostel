@@ -70,7 +70,7 @@ exports.register = async function(req, res, next) {
     } catch (error) {
 
         //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({status: 400, message: 'User Creation unsuccessfully'});
+        return res.status(400).json({status: 400, message: error.message});
     }
 }
 

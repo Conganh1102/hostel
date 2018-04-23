@@ -1,5 +1,3 @@
-import { Double } from '../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bson';
-
 /* ===================
    Import Node Modules
 =================== */
@@ -11,25 +9,27 @@ var mongoosePaginate = require('mongoose-paginate');
 
 houseSchema = new Schema({
     tenantId: {
-        type: Strring,
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
         required: true
     },
     position: {
         lat: {
-            type: Double,
+            type: Number,
             required: true
         },
         lng: {
-            type: Double,
+            type: Number,
             required: true
         }
     },
-    roomsId: [
-        {
-            type: String,
-            required: true
-        }
-    ],
     electricity_price: {
         type: String
     },

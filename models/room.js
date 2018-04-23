@@ -8,6 +8,10 @@ const bcrypt = require('bcrypt-nodejs'); // A native JS bcrypt library for NodeJ
 var mongoosePaginate = require('mongoose-paginate');
 
 roomSchema = new Schema({
+    houseId: {
+        type: String,
+        required: true
+    },
     floor: {
         type: Number,
         required: true,

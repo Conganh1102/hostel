@@ -6,7 +6,7 @@ _this = this;
 
 // Async function to find the House by Id
 
-exports.findUserById = async function(id, fields) {
+exports.findHouseById = async function(id, fields) {
     try {
         var house = await House.findOne({_id: id}).select(fields);
         return house;
@@ -17,10 +17,10 @@ exports.findUserById = async function(id, fields) {
 
 // Async function to find the House by tenantId
 
-exports.findUserByTenantId = async function(id, fields) {
+exports.findHouseByTenantId = async function(id, fields) {
     try {
-        var house = await House.findOne({tenantId: id}).select(fields);
-        return house;
+        var houses = await House.find({tenantId: id}).select(fields);
+        return houses;
     } catch (error) {
         throw Error('Error occured while finding House by tenantId: ' + error);
     }
@@ -30,8 +30,9 @@ exports.findUserByTenantId = async function(id, fields) {
 exports.createHouse = async function(house) {
     var house = new House({
         tenantId: house.tenantId,
+        name: house.name,
+        address: house.address,
         position: house.position,
-        roomsId: house.roomsId,
         electricity_price: house.electricity_price,
         water_price: house.water_price
     });
@@ -64,8 +65,11 @@ exports.updateHouse = async function(house) {
     if (house.position) {
         oldHouse.position = house.position;
     }
-    if (house.rommsId) {
-        oldHouse.rommsId = house.roomsId;
+    if (house.address) {
+        oldHouse.address = house.address;
+    }
+    if (house.name) {
+        oldHouse.name = house.name;
     }
     if (house.electricity_price) {
         oldHouse.electricity_price = house.electricity_price;
