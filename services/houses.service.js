@@ -28,7 +28,7 @@ exports.findHouseByTenantId = async function(id, fields) {
 
 // 
 exports.createHouse = async function(house) {
-    var house = new House({
+    var newHouse = new House({
         tenantId: house.tenantId,
         name: house.name,
         address: house.address,
@@ -38,7 +38,7 @@ exports.createHouse = async function(house) {
     });
 
     try {
-        var createdHouse = await house.save();
+        var createdHouse = await newHouse.save();
         return createdHouse;
     } catch (error) {
         throw Error('Error occured while creating House: ' + error);
@@ -91,7 +91,7 @@ exports.deleteHouse = async function(id) {
     // Delete the house
     try {
         var deleted = await House.remove({_id: id});
-        if(deleted.result.n === 0) {
+        if(deleted.n === 0) {
             throw Error('User could not be deleted');
         }
     } catch (error) {

@@ -77,6 +77,10 @@ exports.updateRoom = async function(room) {
     if (room.images) {
         oldRoom.images = room.images;
     }
+    
+    if (room.status) {
+        oldRoom.status = room.status
+    }
 
     try {
         var updatedRoom = await oldRoom.save();

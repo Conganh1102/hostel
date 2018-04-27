@@ -39,6 +39,10 @@ roomSchema = new Schema({
     ],
     other_info: {
         type: String
+    },
+    status: {
+        type: String,
+        default: 'empty'
     }
 }, {
     usePushEach: true

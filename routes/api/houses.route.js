@@ -8,6 +8,7 @@ var AuthenticationController = require('../../controllers/authentication.control
 
 router.get('/get-own-houses', [AuthenticationController.CheckToken, HouseController.getOwnHouseList]);
 router.post('/create-house', [AuthenticationController.CheckToken, HouseController.createHouse]);
+router.delete('/delete-house/:houseId', [AuthenticationController.CheckToken, HouseController.deleteHouse]);
 
 // Export the Router
 module.exports = router;

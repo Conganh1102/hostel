@@ -90,14 +90,16 @@ exports.deleteHouse = async function(req, res, next) {
     if(!req.decoded.userId){
         return res.status(400).json({status: 400., message: "UserId must be present"});
     }
-    if (!req.body.houseId) {
+    if (!req.params.houseId) {
         return res.status(400).json({status: 400, message: "HouseId must be present"});
     }
 
     try {
-        await HouseService.deleteHouse(req.body.houseId);
+        await HouseService.deleteHouse(req.params.houseId);
+        res.status(200).json({status: 200, message: "Deleted"});
     } catch (error) {
         res.status(500).json({status: 500, message: error.message});
+        console.log(error);
     }
 
 }
