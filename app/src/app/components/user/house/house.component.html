@@ -1,0 +1,78 @@
+<div>
+  <!-- Custom Success/Error Message -->
+  <div class="show-hide-message" *ngIf="message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  
+  <div id="house-toolbar" *ngIf="!newHouse">
+      <button class="btn btn-danger" (click)="newHouseForm()"><span class="fa fa-plus"></span> Thêm nhà</button>
+  </div>
+  
+  <!-- End Toolbar for house -->
+  <br>
+  <app-add-house *ngIf="newHouse"></app-add-house>
+  <br>
+  <!-- Start panel house list -->
+  <div>
+
+  </div>
+  <div *ngIf="!newHouse">
+    <div *ngFor="let house of houseList" class="house-panel">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="display: inline;">{{ house.name }}</h3>
+          <div class="dropdown" style="display: inline; float: right;">
+              <button id="house-option-btn" type="button" data-toggle="dropdown">
+              <span class="caret"></span></button>
+              <ul id="house-option-dropdown" class="dropdown-menu">
+                <li><a routerLink="/">Xem</a></li>
+                <li><a routerLink="/">Sửa</a></li>
+                <li data-toggle="modal" data-target="#confirm-del-model" (click)="selectHouse(house)">Xóa</li>
+              </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li>{{ house.address }}</li>
+            <li>Giá điện: {{ house.electricity_price }}</li>
+            <li>Giá nước: {{ house.water_price }}</li>
+          </ul>
+        </div>
+        <div class="panel-footer">
+          <button class="btn btn-info">Xem các phòng</button>
+          <div class="form-group">
+            <select class="form-control" id="sel1">
+              <option>Tất cả</option>
+              <option>Đã cho thuê</option>
+              <option>Đang rao thuê</option>
+              <option>Còn trống</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div id="confirm-del-model" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">Cảnh báo!!</h3>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc muốn xóa nhà này chứ ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="deleteHouse()" data-dismiss="modal">Đồng ý</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>

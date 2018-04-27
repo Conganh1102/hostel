@@ -81,8 +81,8 @@ export class AddHouseComponent implements OnInit {
     };
     try {
       const res = await this.houseService.createHouse(house);
-      this.processing = false;
-      this.enableFormNewHouse();
+      // this.processing = false;
+      // this.enableFormNewHouse();
       this.messageClass = 'alert alert-success'; // Set a success class
       this.message = res.message; // Set a success message
       setTimeout(function() {

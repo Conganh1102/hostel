@@ -32,17 +32,6 @@ import { UploadFileService } from './services/upload-file.service';
 import { AuthService } from './services/auth.service';
 import { HouseService } from './services/house.service';
 
-// import primeng
-import { ToolbarModule } from 'primeng/toolbar';
-import { InputTextModule } from 'primeng/inputtext';
-import { PanelModule } from 'primeng/panel';
-import { ButtonModule } from 'primeng/primeng';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { DropdownModule } from 'primeng/dropdown';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { DialogModule } from 'primeng/dialog';
-
-
 
 @NgModule({
   declarations: [
@@ -65,16 +54,6 @@ import { DialogModule } from 'primeng/dialog';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpModule,
-
-    ButtonModule,
-    ToolbarModule,
-    InputTextModule,
-    PanelModule,
-    SplitButtonModule,
-    DropdownModule,
-    RadioButtonModule,
-    DialogModule,
-
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBIOJzNMhrwsDp26nrtYfVO9gw40VsMaRI'
     })

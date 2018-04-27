@@ -1,0 +1,19 @@
+form input {
+    width: 50%;
+}
+
+.house-panel {
+    margin-bottom: 4rem;
+}
+#house-toolbar {
+    background-color: antiquewhite;
+    padding: 0.5rem;
+    border-radius: 2px;
+    margin-top: 1rem;
+}
+#house-option-btn {
+    border: none;
+}
+#confirm-del-model p {
+    font-size: 2rem;
+}

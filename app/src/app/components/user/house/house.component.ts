@@ -11,9 +11,6 @@ export class HouseComponent implements OnInit {
 
   message;
   messageClass;
-  roomTypes = [{ name: 'Tất cả' }, { name: 'Đã cho thuê' }, { name: 'Còn trống' }, { name: 'Đang rao' }];
-  selectedTypeRoom;
-  houseItems;
   newHouse = false;
   houseList;
   selectedHouse;
@@ -24,19 +21,6 @@ export class HouseComponent implements OnInit {
 
   ngOnInit() {
     this.getHouseList();
-    this.selectedTypeRoom = { name: 'Tất cả' };
-    this.houseItems = [
-      {
-        label: 'Sửa', icon: 'fa fa-pencil', command: () => {
-          this.editHouse();
-        }
-      },
-      {
-        label: 'Xóa', icon: 'fa-close', command: () => {
-          this.confirmModel();
-        }
-      }
-    ];
   }
 
   async getHouseList() {
@@ -49,19 +33,22 @@ export class HouseComponent implements OnInit {
     }
   }
 
-
-  editHouse() {
-
-  }
-  async deleteHouse(id) {
+  async deleteHouse() {
     try {
-      const data = await this.houseService.deleteHouse(id);
+      const data = await this.houseService.deleteHouse(this.selectedHouse._id);
       this.messageClass = 'alert alert-success';
       this.message = data.message;
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       this.messageClass = 'alert alert-danger';
       this.message = error;
     }
+  }
+
+  selectHouse(house) {
+    this.selectedHouse = house;
   }
 
   onHouseSubmit() {
@@ -73,8 +60,4 @@ export class HouseComponent implements OnInit {
   refresh() {
 
   }
-  confirmModel() {
-    this.selectedHouse = true;
-  }
-
 }

@@ -54,7 +54,7 @@ export class HouseService {
 
   // Function to detele a house by id
   deleteHouse(id) {
-    return this.utilitiesService.getHttpPromise(this.http.delete(this.domain + '/api/houses/delete-house/' + id, this.options)
+    return this.utilitiesService.getHttpPromise(this.http.delete(this.domain + 'api/houses/delete-house/' + id, this.options)
     .map(res => res.json()));
   }
 
