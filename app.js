@@ -45,6 +45,10 @@ app.use(cookieParser());
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
+// Connect server to Angular 4 Index.html
+//app.get('*', (req, res) => {
+  //res.sendFile(path.join(__dirname, '/public/index.html'));
+//});
 app.use('/api', api);
 
 

@@ -48,7 +48,7 @@ export class AuthService {
   // Function to register
   registerUser(user) {
     return this.utilitiesService
-    .getHttpPromise(this.http.post(this.domain + 'api/users/register', user)
+    .getHttpPromise(this.http.post(this.domain + 'api/authentication/register', user)
     .map(res => res.json()));
   }
 

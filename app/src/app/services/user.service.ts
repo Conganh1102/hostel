@@ -44,4 +44,10 @@ export class UserService {
     .map(res => res.json()));
   }
 
+  getPublicProfile(id) {
+    return this.utilitiesService
+    .getHttpPromise(this.http.get(this.domain + 'api/users/public-profile/' + id)
+    .map(res => res.json()));
+  }
+
 }

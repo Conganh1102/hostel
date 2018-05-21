@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
-import { environment } from '../../../../environments/environment';
-import { UploadFileService } from '../../../services/upload-file.service';
-import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../../services/auth.service';
+import { environment } from '../../../../../environments/environment';
+import { UploadFileService } from '../../../../services/upload-file.service';
+import { UserService } from '../../../../services/user.service';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadProfile();
-    this.processingUploadImage = environment.commonImage + 'processing.png';
+    this.processingUploadImage = environment.commonImageUrl + 'processing.png';
   }
 
   async loadProfile() {

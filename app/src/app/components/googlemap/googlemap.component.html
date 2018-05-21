@@ -2,21 +2,17 @@
 <!-- the component as the initial center of the map: -->
 
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Google Map</h3>
-  </div>
   <div class="panel-body">
-    <div id="googlemap-box">
-      <input id="agm-search-input" type="text" class="form-control" placeholder="Search" name="search" (keypress)="search($event)"
-        [(ngModel)]="textInput">
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="hybrid" (mapClick)="placeMarker($event)">
-        <agm-marker [latitude]="latMaker" [longitude]="lngMaker">
-        </agm-marker>
-      </agm-map>
-    </div>
+    <input id="agm-search-input" type="text" class="form-control" placeholder="Search" name="search" (keypress)="search($event)"
+      [(ngModel)]="textInput">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="hybrid" (mapClick)="placeMarker($event)">
+      <agm-marker [latitude]="latMaker" [longitude]="lngMaker">
+      </agm-marker>
+    </agm-map>
   </div>
   <div class="panel-footer">
-    <button class="btn btn-danger" (click)="hiddenGoogleMap()"><span class="fa fa-arrow-left"></span> Quay lại</button>
-    <button [disabled]="!(isValid && textInput)" class="btn btn-success" (click)="onSubmitPosition()"><span class="fa fa-check"></span> Xác nhận</button>
+    <!-- <button class="btn btn-danger" (click)="hiddenGoogleMap()"><span class="fa fa-arrow-left"></span> Quay lại</button> -->
+    <button [disabled]="!isValid" class="btn btn-success" (click)="onSubmitPosition()">
+      <span class="fa fa-check"></span> Xác nhận</button>
   </div>
 </div>

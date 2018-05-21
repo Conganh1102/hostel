@@ -15,6 +15,23 @@ exports.findHouseById = async function(id, fields) {
     }
 }
 
+// 
+exports.createHouse = async function(house) {
+    var newHouse = new House({
+        tenantId: house.tenantId,
+        address: house.address,
+        position: house.position,
+        info: house.info
+    });
+
+    try {
+        var createdHouse = await newHouse.save();
+        return createdHouse;
+    } catch (error) {
+        throw Error('Error occured while creating House: ' + error);
+    }
+}
+
 // Async function to find the House by tenantId
 
 exports.findHouseByTenantId = async function(id, fields) {
@@ -26,24 +43,6 @@ exports.findHouseByTenantId = async function(id, fields) {
     }
 }
 
-// 
-exports.createHouse = async function(house) {
-    var newHouse = new House({
-        tenantId: house.tenantId,
-        name: house.name,
-        address: house.address,
-        position: house.position,
-        electricity_price: house.electricity_price,
-        water_price: house.water_price
-    });
-
-    try {
-        var createdHouse = await newHouse.save();
-        return createdHouse;
-    } catch (error) {
-        throw Error('Error occured while creating House: ' + error);
-    }
-}
 
 // 
 exports.updateHouse = async function(house) {
@@ -68,14 +67,14 @@ exports.updateHouse = async function(house) {
     if (house.address) {
         oldHouse.address = house.address;
     }
-    if (house.name) {
-        oldHouse.name = house.name;
-    }
-    if (house.electricity_price) {
-        oldHouse.electricity_price = house.electricity_price;
-    }
-    if (house.water_price) {
-        oldHouse.water_price = house.water_price;
+    // if (house.electricity_price) {
+    //     oldHouse.electricity_price = house.electricity_price;
+    // }
+    // if (house.water_price) {
+    //     oldHouse.water_price = house.water_price;
+    // }
+    if (hosue.info) {
+        oldHouse.info = house.info;
     }
     try {
         var updatedHouse = await oldHouse.save();

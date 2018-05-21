@@ -17,7 +17,6 @@ export class AddHouseComponent implements OnInit {
   lng = 23123.213;
 
   processing = false;
-  isGiaDan = true;
   isShowGm = false;
   constructor(
     private formBuilder: FormBuilder,
@@ -29,15 +28,9 @@ export class AddHouseComponent implements OnInit {
   }
   createFormNewHouse() {
     this.formNewHouse = this.formBuilder.group({
-      housename: ['', Validators.compose([Validators.required])],
       address: ['', Validators.compose([Validators.required])],
-      electricwater: ['Giá dân', Validators.compose([Validators.required])],
-      electricprice: ['', Validators.compose([Validators.required])],
-      waterprice: ['', Validators.compose([Validators.required])]
+      info: ['', Validators.compose([Validators.required])]
     });
-  }
-  handleChangeEWprice(boolean) {
-    this.isGiaDan = boolean;
   }
   goBack() {
     window.location.reload(); // Clear all variable states
@@ -55,29 +48,22 @@ export class AddHouseComponent implements OnInit {
   }
 
   enableFormNewHouse() {
-    this.formNewHouse.controls['housename'].enable();
     this.formNewHouse.controls['address'].enable();
-    this.formNewHouse.controls['electricwater'].enable();
-    this.formNewHouse.controls['electricprice'].enable();
-    this.formNewHouse.controls['waterprice'].enable();
+    this.formNewHouse.controls['info'].enable();
   }
   disableFormNewHouse() {
-    this.formNewHouse.controls['housename'].disable();
     this.formNewHouse.controls['address'].disable();
-    this.formNewHouse.controls['electricwater'].disable();
-    this.formNewHouse.controls['electricprice'].disable();
-    this.formNewHouse.controls['waterprice'].disable();
+    this.formNewHouse.controls['info'].enable();
+
   }
   async onHouseSubmit() {
     this.processing = true;
     this.disableFormNewHouse();
     const house = {
-      housename: this.formNewHouse.get('housename').value,
       address: this.formNewHouse.get('address').value,
       lat: this.lat,
       lng: this.lng,
-      electricity_price: this.isGiaDan ? 'Giá dân' : this.formNewHouse.get('electricprice').value,
-      water_price: this.isGiaDan ? 'Giá dân' : this.formNewHouse.get('waterprice').value
+      info: this.formNewHouse.get('info').value
     };
     try {
       const res = await this.houseService.createHouse(house);
@@ -92,7 +78,7 @@ export class AddHouseComponent implements OnInit {
       this.processing = false;
       this.enableFormNewHouse();
       this.messageClass = 'alert alert-danger';
-      this.message = error;
+      this.message = 'Thêm nhà không thành công';
     }
   }
 }

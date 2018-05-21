@@ -9,4 +9,4 @@
     process.env.databaseUri = 'mongodb://localhost:27017/hostel'; // Databse URI and database name
     process.env.databaseName = 'development database: hostel'; // Database name
     process.env.MY_DIR_NAME = __dirname;
-  //}
+// }

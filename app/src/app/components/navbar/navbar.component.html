@@ -8,15 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" routerLink="/">HOSTEL</a>
+      <a class="navbar-brand" routerLink="/">
+      <img style="height: 140%;" [src]="logoImage">
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a routerLink="/home">Trang chủ</a>
-        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="!this.authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
@@ -25,34 +24,35 @@
         <li *ngIf="!this.authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a routerLink="/register"><span class="glyphicon glyphicon-user"></span> Đăng kí</a>
         </li>
+
+        <li *ngIf="this.authService.loggedIn()">
+            <a routerLink="/user/add-post">
+            <button style="border: none; border-radius: 5px; padding: 5px;" type="button" class="btn-warning"><i class="fa fa-upload" aria-hidden="true"></i> ĐĂNG TIN</button>
+             </a>
+          </li>
+
         <li *ngIf="this.authService.loggedIn()" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <img id="avatarImage" [src]="avatarImage" alt="">
+            <img class="img-circle" id="avatarImage" [src]="avatarImage" alt="">
             {{ this.user?.info.name.firstname }}
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a routerLink="/user/profile">Trang cá nhân</a>
+              <a routerLink="/user/profile"><i class="fa fa-user" aria-hidden="true"></i> Trang cá nhân</a>
             </li>
             <li>
-              <a routerLink="/user/house">Quản lý nhà</a>
+                <a routerLink="/user/post-manager"><i class="fa fa-bookmark-o" aria-hidden="true"></i>  Quản lý bài đăng</a>
+              </li>
+            <li>
+              <a routerLink="/user/house"><i class="fa fa-home" aria-hidden="true"></i>  Quản lý nhà</a>
             </li>
+            <li>
+                <a routerLink="/user/change-password"><i class="fa fa-key" aria-hidden="true"></i>  Đổi mật khẩu</a>
+              </li>
           </ul>
         </li>
-        <li *ngIf="this.authService.loggedIn()" class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <span class="fa fa-bell"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Thông báo 1</a>
-            </li>
-            <li>
-              <a href="#">Thông báo 2</a>
-            </li>
-          </ul>
-        </li>
+
         <li *ngIf="this.authService.loggedIn()" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="fa fa-envelope-o"></span>
@@ -62,23 +62,38 @@
               <a href="#">Tin nhắn 1</a>
             </li>
             <li>
-              <a href="#">Bài đang theo dõi</a>
+              <a href="#">Tin nhắn 2</a>
             </li>
           </ul>
         </li>
+
+        <li *ngIf="this.authService.loggedIn()" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="fa fa-bell"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">Thông báo 1</a>
+              </li>
+              <li>
+                <a href="#">Thông báo 2</a>
+              </li>
+            </ul>
+          </li>
+
         <li *ngIf="this.authService.loggedIn()" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#">Thông tin liên hệ</a>
+              <a href="#"><i class="fa fa-users" aria-hidden="true"></i> Thông tin liên hệ</a>
             </li>
             <li>
-              <a href="#">Cài đặt</a>
+              <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>  Cài đặt</a>
             </li>
             <li *ngIf="this.authService.loggedIn()">
-              <a href="#" (click)="onLogoutClick()">Đăng xuất</a>
+              <a href="#" (click)="onLogoutClick()"><i class="fa fa-sign-out" aria-hidden="true"></i>  Đăng xuất</a>
             </li>
           </ul>
         </li>

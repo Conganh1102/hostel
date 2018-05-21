@@ -8,24 +8,6 @@ var multer = require('multer');
 
 _this = this;
 
-// Async Controller function to get the User List
-
-exports.getUsers = async function(req, res, next) {
-
-    // Check the existence of the query parameters, If the exists doesn'n exists assign a default value
-    var page = req.query.page ? req.query.page : 1;
-    var limit = req.query.limit ? req.query.limit : 10;
-
-    try {
-        var users = await UserService.getUsers({}, page, limit);
-        // Return the user list with the appropriate HTTP Status Code and Message.
-        return res.status(200).json({status: 200, data: users, message: 'Succesfully Users Received'});
-    } catch (error) {
-        
-        //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({status: 400, message: error.message});
-    }
-}
   /* ===============
   REGISTER FUNCTION
   ================= */
@@ -81,7 +63,7 @@ exports.changePassword = async function(req, res, next) {
     // Id is necessary for the update
 
     if(!req.decoded.userId){
-        return res.status(400).json({status: 400., message: "Id must be present"})
+        return res.status(400).json({status: 400, message: "Id must be present"})
     }
 
     var id = req.decoded.userId;
@@ -174,6 +156,21 @@ try {
         res.status(500).json({status: 500, message: error.message});
     }
 }
+
+exports.getPublicProfile = async function(req, res, next) {
+    // Search for user in database
+    try {
+        var user = await UserService.findUserById(req.params.userId)
+        if(!user) {
+            return res.status(400).json({status: 400, success: false, message: "User not found"})
+        }
+        user.password = null;
+        res.status(200).json({status: 200, data: {user: user}, message: "Successfully!"});
+        } catch (error) {
+            res.status(500).json({status: 500, message: error.message});
+        }
+    }
+
 /* ====================
     UPLOAD AVATAR IMAGE
 ===================== */

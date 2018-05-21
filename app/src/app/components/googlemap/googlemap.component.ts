@@ -18,6 +18,7 @@ export class GooglemapComponent implements OnInit {
   zoom = 16;
 
   textInput = '';
+  address;
   isValid = false;
   constructor(
     private agmService: AgmService
@@ -33,8 +34,11 @@ export class GooglemapComponent implements OnInit {
   }
 
   placeMarker($event) {
-    this.latMaker = $event.coords.lat;
-    this.lngMaker = $event.coords.lng;
+    console.log($event.coords);
+    this.lat = this.latMaker = $event.coords.lat;
+    this.lng = this.lngMaker = $event.coords.lng;
+
+    this.isValid = true;
   }
   async search($event) {
     this.isValid = false;
@@ -44,6 +48,7 @@ export class GooglemapComponent implements OnInit {
         if (data.results && data.status === 'OK') {
           this.lat = this.latMaker = data.results[0].geometry.location.lat;
           this.lng = this.lngMaker = data.results[0].geometry.location.lng;
+          this.textInput = this.address = data.results[0].formatted_address;
           this.isValid = true;
         }
       } catch (error) {
@@ -57,7 +62,7 @@ export class GooglemapComponent implements OnInit {
   }
   onSubmitPosition() {
     const position = {
-      address: this.textInput,
+      address: this.address,
       lat: this.lat,
       lng: this.lng
     };

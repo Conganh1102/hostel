@@ -8,5 +8,6 @@ export const environment = {
   domain: 'http://localhost:3000/',
   agmApiKey: 'AIzaSyBIOJzNMhrwsDp26nrtYfVO9gw40VsMaRI',
   avatarUrl: 'http://localhost:3000/api/images/u/avatar/',
-  commonImage: 'http://localhost:3000/api/images/commons/'
+  commonImageUrl: 'http://localhost:3000/api/images/commons/',
+  roomImageUrl: 'http://localhost:3000/api/images/room/'
 };

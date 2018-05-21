@@ -8,7 +8,7 @@ _this = this;
 
 exports.findRoomById = async function(id, fields) {
     try {
-        var romm = await Room.findOne({_id: id}).select(fields);
+        var room = await Room.findOne({_id: id}).select(fields);
         return room;
     } catch (error) {
         throw Error('Error occured while finding Room by Id: ' + error);
@@ -17,7 +17,7 @@ exports.findRoomById = async function(id, fields) {
 
 exports.findRoomByHouseId = async function(id, fields) {
     try {
-        var romms = await Room.find({houseId: id}).select(fields);
+        var rooms = await Room.find({houseId: id}).select(fields);
         return rooms;
     } catch (error) {
         throw Error('Error occured while finding Room by houseId: ' + error);
@@ -30,8 +30,9 @@ exports.createRoom = async function(room) {
         floor:  room.floor,
         area: room.area,
         price: room.price,
-        self_contained: room.self_contained,
-        kitchen: room.kitchen,
+        roomNumber: room.roomNumber,
+        // self_contained: room.self_contained,
+        // kitchen: room.kitchen,
         other_info: room.other_info,
         images: room.images
     });
@@ -44,16 +45,20 @@ exports.createRoom = async function(room) {
 }
 
 exports.updateRoom = async function(room) {
-    var id = room.id;
+    var id = room._id;
 
     try {
-        var oldRoom = await Room.findUserById(id);
+        var oldRoom = await Room.findById(id);
     } catch (error) {
         throw Error('Error occured while finding Room by Id: ' + error);
     }
 
     if (room.houseId) {
         oldRoom.houseId = room.houseId;
+    }
+
+    if (room.roomNumber) {
+        oldRoom.roomNumber = room.roomNumber;
     }
 
     if (room.floor) {
@@ -64,12 +69,6 @@ exports.updateRoom = async function(room) {
     }
     if (room.price) {
         oldRoom = room.price;
-    }
-    if (room.self_contained) {
-        oldRoom.self_contained = room.self_contained;
-    }
-    if (room.kitchen) {
-        oldRoom.kitchen = room.kitchen;
     }
     if (room.other_info) {
         oldRoom.other_info = room.other_info;
@@ -84,7 +83,7 @@ exports.updateRoom = async function(room) {
 
     try {
         var updatedRoom = await oldRoom.save();
-        return updaedRoom;
+        return updatedRoom;
     } catch (error) {
         throw Error('Error occured while update Room: ' + error);
     }
@@ -95,7 +94,7 @@ exports.deleteRoom = async function(id) {
     // Delete the room
     try {
         let deleted = await Room.remove({_id: id});
-        if(deleted.result.n === 0) {
+        if(deleted.n === 0) {
             throw Error('Room could not be deleted');
         }
     } catch (error) {

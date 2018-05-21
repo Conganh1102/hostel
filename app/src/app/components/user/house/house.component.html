@@ -1,3 +1,4 @@
+<p-growl [(value)]="msgs"></p-growl>
 <div>
   <!-- Custom Success/Error Message -->
   <div class="show-hide-message" *ngIf="message">
@@ -5,74 +6,272 @@
       {{ message }}
     </div>
   </div>
-  
+
   <div id="house-toolbar" *ngIf="!newHouse">
-      <button class="btn btn-danger" (click)="newHouseForm()"><span class="fa fa-plus"></span> Thêm nhà</button>
+    <button class="btn btn-danger" (click)="newHouseForm()">
+      <span class="fa fa-plus"></span> Thêm nhà</button>
   </div>
-  
+
   <!-- End Toolbar for house -->
   <br>
   <app-add-house *ngIf="newHouse"></app-add-house>
   <br>
   <!-- Start panel house list -->
-  <div>
+  <div class="row">
+    <div class="col-sm-9">
 
-  </div>
-  <div *ngIf="!newHouse">
-    <div *ngFor="let house of houseList" class="house-panel">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title" style="display: inline;">{{ house.name }}</h3>
-          <div class="dropdown" style="display: inline; float: right;">
-              <button id="house-option-btn" type="button" data-toggle="dropdown">
-              <span class="caret"></span></button>
-              <ul id="house-option-dropdown" class="dropdown-menu">
-                <li><a routerLink="/">Xem</a></li>
-                <li><a routerLink="/">Sửa</a></li>
-                <li data-toggle="modal" data-target="#confirm-del-model" (click)="selectHouse(house)">Xóa</li>
+      <div *ngIf="!newHouse">
+        <div *ngFor="let house of houseList" class="house-panel">
+          <div class="panel panel-info">
+
+            <!-- Start panel heading -->
+
+            <div class="panel-heading inline">
+              <h2 class="panel-title" style="display: inline;">{{ house.address }}</h2>
+              <div class="right">
+                <button type="button" data-toggle="tooltip" data-placement="bottom" title="Xem chi tiết">
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </button>
+
+                <button type="button" data-toggle="tooltip" data-placement="bottom" title="Sửa thông tin">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+
+                <button type="button" data-toggle="modal" data-placement="bottom" title="Xóa" data-target="#confirm-del-model">
+                  <i class="fa fa-trash-o" aria-hidden="true" (click)="selectHouse(house)"></i>
+                </button>
+
+              </div>
+            </div>
+
+            <!-- End panel heading -->
+
+            <!-- Start panel body -->
+
+            <div class="panel-body">
+              <ul>
+                <li>Địa chỉ: {{ house.address }}</li>
+                <li>Thông tin: {{ house.info }}</li>
               </ul>
             </div>
-        </div>
-        <div class="panel-body">
-          <ul>
-            <li>{{ house.address }}</li>
-            <li>Giá điện: {{ house.electricity_price }}</li>
-            <li>Giá nước: {{ house.water_price }}</li>
-          </ul>
-        </div>
-        <div class="panel-footer">
-          <button class="btn btn-info">Xem các phòng</button>
-          <div class="form-group">
-            <select class="form-control" id="sel1">
-              <option>Tất cả</option>
-              <option>Đã cho thuê</option>
-              <option>Đang rao thuê</option>
-              <option>Còn trống</option>
-            </select>
+
+            <!-- End panel body -->
+
+            <!-- Start panel footer -->
+
+            <div class="panel-footer">
+              <div id="house-panel-footer" class="inline">
+                <div>
+                  <button *ngIf="!this.roomOptions[house._id].isShowRoom" class="btn btn-info" (click)="showRooms(house)"><i class="fa fa-list-alt" aria-hidden="true"></i> Xem các phòng</button>
+                  <button *ngIf="this.roomOptions[house._id].isShowRoom" class="btn btn-info" (click)="showRooms(house)"><i class="fa fa-times" aria-hidden="true"></i> Đóng danh sách phòng</button>
+                </div>
+                <div>
+                  <select class="btn" id="sel-room-type" [(ngModel)]="this.roomOptions[house._id].selectShowOption">
+                    <option value="XEM_TAT_CA">Tất cả</option>
+                    <option value="DA_CHO_THUE">Đã cho thuê</option>
+                    <option value="DANG_RAO">Đang rao thuê</option>
+                    <option value="CON_TRONG">Còn trống</option>
+                  </select>
+                </div>
+                <div class="right">
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#add-room-model" (click)="selectHouse(house)">
+                    <span class="fa fa-plus"></span> Thêm phòng</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- End panel footer -->
+
+            <!-- Start panel rooms -->
+
+            <div id="rooms-panel" *ngIf="this.roomOptions[house._id].isShowRoom">
+              <div *ngIf="house.rooms?.length == 0" class="alert alert-danger">
+                <p>Nhà này chưa có phòng</p>
+              </div>
+              <div style="margin: 2rem;" *ngFor="let room of house.rooms">
+                <div class="panel panel-info" *ngIf="this.roomOptions[house._id].selectShowOption == 'XEM_TAT_CA' || 
+                (this.roomOptions[house._id].selectShowOption == 'DA_CHO_THUE' && room.status == 'RENTED') || 
+                (this.roomOptions[house._id].selectShowOption == 'DANG_RAO' && room.status == 'SALE') ||
+                (this.roomOptions[house._id].selectShowOption == 'CON_TRONG' && room.status == 'EMPTY')">
+                  <div class="panel-heading inline">
+                    <h3 class="panel-title" style="display: inline;">Phòng: {{ room.roomNumber }} </h3>
+                    <div class="right">
+                      <button type="button" data-toggle="tooltip" data-placement="bottom" title="Sửa thông tin">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+
+                      <button type="button" data-toggle="modal" data-placement="bottom" title="Xóa" data-target="#confirm-del-room-model" title="Xóa" (click)="selectRoomId(room._id)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Start panel room body -->
+
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div>
+                          <img style="width: 100%;" [src]="roomImageUrl + room.images" alt="" data-toggle="modal" data-target="#carousel-room-image">
+                        </div>
+
+                      </div>
+                      <div class="col-sm-9">
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <li>Tầng: {{ room.floor }}</li>
+                          </div>
+                          <div class="col-sm-4">
+                            <li>Diện tích: {{ room.area }} m2</li>
+                          </div>
+                          <div class="col-sm-4">
+                            <li>Giá: {{ room.price | number:'.' }} đồng/tháng</li>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <li>Thông tin khác: {{ room.other_info }}</li>
+                          </div>
+                          <div class="col-sm-12">
+                            <li *ngIf="room.status == 'EMPTY'">Phòng này đang trống</li>
+                            <li *ngIf="room.status == 'SALE'">Phòng này đang được rao</li>
+                            <li *ngIf="room.status == 'RENTED'">Phòng này đang cho thuê</li>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- End panel room body -->
+
+                  <!-- Start panel room footer -->
+
+                  <div class="panel-footer">
+                  <a [routerLink]="['/user/add-post/', room._id]">
+                      <button *ngIf="room.status == 'EMPTY'" type="button" class="btn btn-info">Rao tin cho thuê</button>
+                  </a>
+                  <button *ngIf="room.status == 'SALE'" type="button" class="btn btn-danger" (click)="updateStatusForRoom(room, 'EMPTY')">Hủy rao</button>
+                  <button *ngIf="room.status == 'EMPTY'" type="button" class="btn btn-warning" (click)="updateStatusForRoom(room, 'RENTED')">Đánh dấu đã cho thuê</button>
+                  <button *ngIf="room.status == 'RENTED'" type="button" class="btn btn-danger" (click)="updateStatusForRoom(room, 'EMPTY')">Hủy cho thuê</button>
+                  <!-- <button *ngIf="room.status == 'RENTED'" type="button" class="btn btn-info">Thông tin người thuê</button> -->
+                  
+                  </div>
+
+                  <!-- End panel room footer -->
+
+
+                </div>
+
+              </div>
+            </div>
+
+            <!-- End panel rooms -->
+
           </div>
         </div>
       </div>
+
     </div>
+  </div>
+
+</div>
+<!-- Modal confirm delete -->
+<div id="confirm-del-model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Cảnh báo!!</h3>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc muốn xóa nhà này chứ ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteHouse()" data-dismiss="modal">Đồng ý</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<!-- Trigger the modal with a button -->
+
 <!-- Modal -->
-<div id="confirm-del-model" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3 class="modal-title">Cảnh báo!!</h3>
-        </div>
-        <div class="modal-body">
-          <p>Bạn có chắc muốn xóa nhà này chứ ?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="deleteHouse()" data-dismiss="modal">Đồng ý</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
-        </div>
+<div id="add-room-model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Thêm phòng</h4>
       </div>
-  
+      <div class="modal-body">
+        <form [formGroup]="formNewRoom" (submit)="onNewRoomSubmit()">
+          <div class="form-group">
+            <label for="roomNumber">Số phòng:</label>
+            <input type="text" class="form-control" id="" placeholder="*Phòng số ?" formControlName="roomNumber">
+          </div>
+          <div class="form-group">
+            <label for="floor">Tầng:</label>
+            <input type="number" class="form-control" id="" placeholder="*Tầng" formControlName="floor">
+          </div>
+
+
+          <div class="form-group">
+            <label for="area">Diện tích: (m2)</label>
+            <input type="number" class="form-control" id="" placeholder="*Diện tích" formControlName="area">
+          </div>
+
+          <div class="form-group">
+            <label for="roomNumber">Giá cho thuê: (đồng/tháng)</label>
+            <input type="number" class="form-control" id="" placeholder="*Giá phòng" formControlName="price">
+          </div>
+
+          <div class="form-group">
+            <label for="images">Ảnh: </label>
+            <div>
+              <input type="file" name="images" class="form-control" id="" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="other_info">Thông tin khác: </label>
+            <textarea class="form-control" rows="4" id="other_info" formControlName="other_info"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Xác nhận</button>
+        </form>
+
+      </div>
     </div>
+
   </div>
+</div>
+
+
+<!-- Modal confirm delete -->
+<div id="confirm-del-room-model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Cảnh báo!!</h3>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc muốn xóa phòng này chứ ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteRoom()" data-dismiss="modal">Đồng ý</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+      </div>
+    </div>
+
+  </div>
+</div>

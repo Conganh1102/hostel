@@ -52,6 +52,20 @@ export class HouseService {
     .map(res => res.json()));
   }
 
+  getSingleHouse(id) {
+    return this.utilitiesService
+    .getHttpPromise(this.http.get(this.domain + 'api/houses/get-single-house/' + id)
+    .map(res => res.json()));
+  }
+
+  // Function to update own house
+  updateHouse(house) {
+    this.createAuthenticationHeaders();
+    return this.utilitiesService
+    .getHttpPromise(this.http.put(this.domain + 'api/house/update-house', house, this.options)
+    .map(res => res.json()));
+  }
+
   // Function to detele a house by id
   deleteHouse(id) {
     return this.utilitiesService.getHttpPromise(this.http.delete(this.domain + 'api/houses/delete-house/' + id, this.options)

@@ -11,7 +11,8 @@ export class UtilitiesService {
       obs.subscribe(data => {
         return resolve(data);
       }, err => {
-        return reject(new Error(err));
+        console.log(err);
+        return reject(new Error(err._body));
       });
     });
   }

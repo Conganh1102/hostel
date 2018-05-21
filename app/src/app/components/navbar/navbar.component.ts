@@ -12,7 +12,8 @@ import { environment } from '../../../environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
-  avatarImage;
+  avatarImage = '';
+  logoImage = environment.commonImageUrl + 'hostel-house.png';
   user;
 
   constructor(

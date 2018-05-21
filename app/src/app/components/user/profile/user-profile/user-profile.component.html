@@ -22,41 +22,42 @@
             </div>
             <br>
             <div>
-                <button class="btn btn-danger">Chỉnh sửa thông tin</button>
+                <a routerLink="/user/update-info"><button class="btn btn-danger"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh sửa thông tin</button></a>
+                
             </div>
             <br>
-            <div class="white-box-card">
+            <!-- <div class="white-box-card">
                 <ul>
                     <li>Trang cá nhân</li>
                     <li>Quản lý nhà của bạn</li>
                     <li>More</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <div class="col-sm-6">
             <div class="white-box-card">
-                <h4>Thông tin tài khoản</h4>
+                <legend> <b>Thông tin tài khoản</b> </legend>
                 <div style="display: block;">
-                    <p>Tên tài khoản: {{ user?.username }}</p>
-                    <p>Địa chỉ Email: {{ user?.email }}</p>
-                    <p>Vai trò: {{ user?.role }}</p>
+                    <p><b><i class="fa fa-user-o" aria-hidden="true"></i> Tên tài khoản:</b> {{ user?.username }}</p>
+                    <p><b><i class="fa fa-envelope-o" aria-hidden="true"></i> Email:</b> {{ user?.email }}</p>
+                    <p><b><i class="fa fa-anchor" aria-hidden="true"></i> Vai trò:</b> {{ user?.role }}</p>
                 </div>
             </div>
             <br>
             <div class="white-box-card">
-                <h4>Thông tin người dùng</h4>
+                <legend><b>Thông tin người dùng</b></legend>
                 <div style="display: block;">
-                    <p>Họ và tên: {{ user?.info.name.surname + ' ' + user?.info.name.firstname }}</p>
-                    <p>Giới tính: {{ user?.info.sex }}</p>
-                    <p>Ngày sinh: {{ user?.info.birthday | date:"dd-MM-yyyy" }}</p>
+                    <p><b><i class="fa fa-check" aria-hidden="true"></i> Họ và tên:</b> {{ user?.info.name.surname + ' ' + user?.info.name.firstname }}</p>
+                    <p><b><i class="fa fa-child" aria-hidden="true"></i> Giới tính:</b> {{ user?.info.sex }}</p>
+                    <p><b><i class="fa fa-birthday-cake" aria-hidden="true"></i> Ngày sinh:</b> {{ user?.info.birthday | date:"dd-MM-yyyy" }}</p>
                 </div>
             </div>
             <br>
             <div class="white-box-card">
-                <h4>Thông tin liên lạc</h4>
+                <legend><b>Thông tin liên lạc</b></legend>
                 <div style="display: block;">
-                    <p>Địa chỉ: {{ user?.info.contact.address }}</p>
-                    <p>Số điện thoại: {{ user?.info.contact.phoneNumber }}</p>
+                    <p><b><i class="fa fa-location-arrow" aria-hidden="true"></i> Địa chỉ:</b> {{ user?.info.contact.address }}</p>
+                    <p><b><i class="fa fa-phone" aria-hidden="true"></i> Số điện thoại:</b> {{ user?.info.contact.phoneNumber }}</p>
                 </div>
             </div>
         </div>

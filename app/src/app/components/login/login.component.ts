@@ -56,8 +56,8 @@ export class LoginComponent implements OnInit {
         if (data.status !== 200 || !data.success) {
         this.messageClass = 'alert alert-danger'; // Set bootstrap error class
         this.message = data.message; // Set error message
-        // this.processing = false; // Enable submit button
-        // this.enableForm(); // Enable form for editting
+        this.processing = false; // Enable submit button
+        this.enableForm(); // Enable form for editting
       } else {
         this.messageClass = 'alert alert-success'; // Set bootstrap success class
         this.message = data.message; // Set success message

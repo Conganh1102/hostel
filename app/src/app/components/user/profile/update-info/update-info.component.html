@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-6">
+    <form  [formGroup]="form" (submit)="onSubmit()">
+      <legend>Cập nhật thông tin cá nhân</legend>
+
+      <div class="form-group">
+        <label for="">Họ tên: </label>
+        <input type="text" class="form-control" id="" placeholder="Họ tên" formControlName="name">
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="sel1">Giới tính:</label>
+            <select class="form-control" id="sel1" formControlName="sex">
+              <option>Nam</option>
+              <option>Nữ</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label for="">Ngày sinh: </label>
+            <input type="text" class="form-control" id="" placeholder="Ngày sinh" formControlName="birthday">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Địa chỉ: </label>
+        <input type="text" class="form-control" id="address" placeholder="Địa chỉ" formControlName="address">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Số điện thoại: </label>
+        <input type="text" class="form-control" id="phoneNumber" placeholder="Số điện thoại" formControlName="phoneNumber">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Xác nhận</button>
+    </form>
+  </div>
+</div>

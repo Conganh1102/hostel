@@ -1,0 +1,80 @@
+<div class="row" style="margin-top: 4rem;">
+  <div class="col-sm-8">
+
+    <div *ngIf="true">
+      <div *ngFor="let post of posts">
+        <div class="row">
+          <div class="col-sm-8">
+            <a [routerLink]="['/post-detail/', post._id]">
+              <p style="text-transform: uppercase; color: red;">{{ post.title }}</p>
+            </a>
+          </div>
+          <div class="col-sm-4">
+            <p style="float: right;">{{ post.createAt | date:'d/M/yyyy - h:mm a'}}</p>
+          </div>
+          <div class="col-sm-3">
+            <img class="img-thumbnail" *ngIf="post.room_info.images" style="width: 100%;" [src]="roomImageUrl + post.room_info.images"
+              alt="">
+            <img *ngIf="!post.room_info.images" style="width: 70%;" src="http://localhost:3000/api/images/commons/home-icon.png" alt="">
+          </div>
+          <div class="col-sm-9">
+            <div class="row">
+
+              <div class="col-sm-2">
+                <b>Giá</b>
+              </div>
+              <div class="col-sm-10">
+                <p>:{{ post.room_info.price | number:'.' }} đồng/tháng</p>
+              </div>
+              <div class="col-sm-2">
+                <b>Diện tích</b>
+              </div>
+              <div class="col-sm-10">
+                <p>:{{ post.room_info.area }}m2</p>
+              </div>
+              <div class="col-sm-2">
+                <b>Địa chỉ</b>
+              </div>
+              <div class="col-sm-10">
+                <p>:{{ post.room_info.address }}</p>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-danger" (click)="selectPost(post)" data-toggle="modal" data-placement="bottom" data-target="#confirm-del-model"><i class="fa fa-trash-o" aria-hidden="true"></i>  Gỡ bài đăng này</button>
+              <!-- <button type="button" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>  Sửa thông tin bài đăng</button> -->
+            </div>
+
+          </div>
+        </div>
+        <hr>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+
+  </div>
+</div>
+
+<!-- Modal confirm delete -->
+<div id="confirm-del-model" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Cảnh báo!!</h3>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc muốn gỡ bài đăng này chứ ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deletePost()" data-dismiss="modal">Đồng ý</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Quay lại</button>
+      </div>
+    </div>
+
+  </div>
+</div>

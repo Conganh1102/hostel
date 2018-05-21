@@ -43,4 +43,12 @@ export class UploadFileService {
     .map(res => res.json()));
   }
 
+  uploadRoomImage(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('images', file);
+    return this.utilitiesService
+    .getHttpPromise(this.http.post(this.domain + 'api/posts/upload-room-image', formData)
+    .map(res => res.json()));
+  }
+
 }

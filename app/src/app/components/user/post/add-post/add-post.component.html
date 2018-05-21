@@ -1,0 +1,132 @@
+<!-- Custom Success/Error Message -->
+<div class="show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+<!-- Start new house form -->
+
+<div class="row">
+  <div class="col-sm-9">
+    <form [formGroup]="form" (submit)="onSubmit()">
+      <legend>Thêm bài đăng</legend>
+
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">THÔNG TIN CƠ BẢN</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="title">Tiêu đề bài đăng: </label>
+            <input type="text" name="title" class="form-control" id="" placeholder="*Tiêu đề bài đăng" formControlName="title">
+          </div>
+
+          <div class="form-group">
+            <label for="address">Địa chỉ: </label>
+            <input [(ngModel)]="address" (focus)="showGoogleMap()" type="text" name="address" class="form-control" id="" placeholder="*Địa chỉ"
+              formControlName="address">
+          </div>
+
+          <!-- Googlemap Panel -->
+          <app-googlemap *ngIf="isShowGm" (hiddenGM)="hiddenGoogleMap()" (sendPosition)="getPosition($event)"></app-googlemap>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="floor">Tầng: </label>
+                <input type="text" name="floor" class="form-control" id="" placeholder="*Tầng" formControlName="floor">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="area">Diện tích(m2): </label>
+                <input type="text" name="area" class="form-control" id="" placeholder="*Diện tích" formControlName="area">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label for="price">Giá: </label>
+                <input type="text" name="price" class="form-control" id="" placeholder="*Giá" formControlName="price">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">THÔNG TIN MÔ TẢ</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <textarea class="form-control" rows="5" id="other_info" formControlName="other_info"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              Giới thiệu chung về phòng trọ của bạn. Ví dụ: Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... Tổng diện tích
+              52m2, đường đi ô tô vào tận cửa.
+              <br>
+              <p style="color: red">Lưu ý: tin rao chỉ để mệnh giá tiền Việt Nam Đồng.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">HÌNH ẢNH</h3>
+        </div>
+        <div class="panel-body">
+          Tối đa 8 ảnh với tin thường. Mỗi ảnh tối đa 2MB
+          <br> Tin rao có trên 5 ảnh sẽ được liên hệ nhiều hơn so với các tin khác. Hãy đăng nhiều ảnh để giao dịch nhanh chóng!
+          <div *ngIf="roomImage" style="float: left;">
+            <img [src]="roomImage" alt="profile image" class="roomImage img-thumbnail">
+          </div>
+          <div style="clear: both;"></div>
+          <div class="form-group">
+            <label for="images">Ảnh: </label>
+            <div>
+              <input type="file" name="images" class="form-control" formControlName="images" id="" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)" multiple>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">LIÊN HỆ</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-7">
+              <div class="form-group">
+                <label for="owner">*Tên chủ nhà: </label>
+                <input type="text" name="owner" class="form-control" id="" placeholder="*Tên chủ nhà" formControlName="owner">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label for="phone">Số điện thoại liên lạc: </label>
+                <input type="text" name="phone" class="form-control" id="" placeholder="*Số điện thoại liên lạc" formControlName="phone">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary">Đăng bài</button>
+    </form>
+  </div>
+
+</div>

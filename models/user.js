@@ -224,71 +224,18 @@ const nameValidators = [
 ];
 // User Model Definition
 const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-    validate: emailValidators
+  email: {type: String,required: true,unique: true,lowercase: true,validate: emailValidators},
+  username: {type: String,required: true,unique: true,lowercase: true},
+  password: {type: String,required: true// validate: passwordValidators
   },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  password: {
-    type: String,
-    required: true
-    // validate: passwordValidators
-  },
-  info: {
-    name: {
-      firstname: {
-        type: String,
-        validate: nameValidators
-      },
-      surname: {
-        type: String,
-        validate: nameValidators
-      }
-
-    },
-    avatar: {
-      type: String
-    },
-    sex: {
-      type: String,
-      validate: sexValidators
-    },
-    birthday: {
-      type: Date
-    },
-    contact: {
-      address: {
-        type: String,
-        validate: addressValidators
-      },
-      phoneNumber: {
-        type: String,
-        validate: phoneNumberValidators
-      }
-    }
-  },
-  createAt: {
-    type: Date,
-    default: Date.now()
-  },
-  role: {
-    type: String,
-    default: 'Thành viên',
-    required: true,
-    validate: RoleValidators
-  },
-  actived: {
-    type: Boolean,
-    default: false
-  }
+  info: {name: {firstname: {type: String,validate: nameValidators},surname: {type: String,validate: nameValidators}},
+    avatar: {type: String},
+    sex: {type: String, validate: sexValidators},
+    birthday: {type: Date },
+    contact: {address: { type: String,validate: addressValidators },phoneNumber: {type: String,validate: phoneNumberValidators}}},
+  createAt: {type: Date,default: Date.now()},
+  role: {type: String, default: 'Thành viên', required: true, validate: RoleValidators},
+  actived: {type: Boolean, default: false}
 }, {
   usePushEach: true
 });
